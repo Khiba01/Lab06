@@ -2,6 +2,7 @@ package it.unibo.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,16 @@ public final class UseListsAndMaps {
         /*
          * 8) Compute the population of the world
          */
+        Map<String,Double> map = new HashMap<>();
+        map.put("Africa", 1_110_635_000D);
+        map.put("Americas", 972_005_000D);
+        map.put("Antartica", 0D);
+        map.put("Asia", 4_298_723_000D);
+        map.put("Europe", 742_452_000D);
+        map.put("Oceania", 38_304_000D);
+        map.put("World", map.get("Africa")+map.get("Americas")+map.get("Antartica")+map.get("Asia")+map.get("Europe")+map.get("Oceania"));
+
+        System.out.println(map);
     }
     public static long prepareVariable() {
         long time = System.nanoTime();
