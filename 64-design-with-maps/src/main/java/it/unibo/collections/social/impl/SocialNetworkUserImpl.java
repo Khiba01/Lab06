@@ -37,7 +37,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * In order to save the people followed by a user organized in groups, adopt
      * a generic-type Map:  think of what type of keys and values would best suit the requirements
      */
-    private Map<String, List<U>> followerMap = new HashMap<>();
+    private Map<String, Set<U>> followerMap = new HashMap<>();
 
     /*
      * [CONSTRUCTORS]
@@ -80,13 +80,12 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     @Override
     public boolean addFollowedUser(final String circle, final U user) {
-        final List<U> currentFollower = new ArrayList<>(followerMap.get(circle));
-        if (!followerMap.values().contains(user)) {
-            currentFollower.add(user);
+        Set<U> currentFollower = followerMap.get(circle);
+        if (currentFollower == null) {
+            currentFollower = new HashSet<>();
             followerMap.put(circle, currentFollower);
-            return true;
         }
-        return false;
+        return currentFollower.add(user);
     }
 
     /**
@@ -104,6 +103,6 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
 
     @Override
     public List<U> getFollowedUsers() {
-        return followerMap.get(this.getUsername());
+        return (List<U>) followerMap.get(this.getUsername());
     }
 }
